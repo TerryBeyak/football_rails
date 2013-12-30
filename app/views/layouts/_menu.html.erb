@@ -1,0 +1,8 @@
+<nav>
+  <ul>
+    <% if params['controller'] == "weeks" && params['action'] != "index" %>
+      <li><%= link_to "Your picks", season_week_path(current_season, current_week) %></li>
+      <li><%= link_to "All picks this week", season_week_picks_path(current_season, current_week) %></li>
+    <% end %>
+  </ul>
+</nav>

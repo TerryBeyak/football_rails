@@ -1,0 +1,31 @@
+<%= form_for [current_season, @week] do |f| %>
+  <% if @week.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@week.errors.count, "error") %> prohibited this week from being saved:</h2>
+
+      <ul>
+      <% @week.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :number %><br />
+    <%= f.select :number, (1..17) %>
+  </div>
+    <div class="field">
+    <p>This is when people can start adding picks</p>
+    <%= f.label :start_time %><br />
+    <%= f.datetime_select :start_time %>
+  </div>
+    <div class="field">
+    <p>After this time, users can no longer enter or change their picks</p>
+    <%= f.label :end_time %><br />
+    <%= f.datetime_select :end_time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %> 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FootballRails</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <img src="/assets/soldier_field.jpg" class="stretch"/>
+
+  <div id="content">
+      
+    <div id="inner-content">
+      <% if user_signed_in? %>
+      <div>
+        <p>Hello <%= current_user.email %></p>
+        <p><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        <% if true %>
+          <%= render "layouts/menu" %>
+        <% end %>
+      </div>
+      <% end %> 
+
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>

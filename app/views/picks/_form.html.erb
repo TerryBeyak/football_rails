@@ -1,0 +1,25 @@
+<%= form_for [current_season, current_week, current_match, @pick] do |f| %>
+  <% if @pick.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pick.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @pick.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label current_match.home_team.name %>
+    <%= f.select :home_team_value, options_for_select(available_points) %>
+  </p>
+
+  <p>
+    <%= f.label current_match.away_team.name %>
+    <%= f.select :away_team_value, options_for_select(available_points) %>
+  </p>
+
+  <%= f.submit "Submit Picks" %>
+<% end %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <b>Week </b>
+  <%= @week.number %>
+</h1>
+
+<table>
+<% @week.matches.each do |match| %>
+  <tr>
+    <td><%= match.home_team.name %></td>
+    <td><%= match.away_team.name %></td>
+    <% if user_signed_in? %>
+      <% if match.pick_for_user(current_user).present? %>
+        <td><%= link_to "Edit your pick", edit_season_week_match_pick_path(current_season, @week, match, match.pick_for_user(current_user)) %></td>
+        <td>(You put <%= match.pick_for_user(current_user).value %> on <%= match.pick_for_user(current_user).team_picked.name %>)</td>  
+      <% else %>
+        <td><%= link_to "Put points on this match", new_season_week_match_pick_path(current_season, @week, match) %></td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<p>
+  <%= link_to 'New Match', new_season_week_match_path(current_season, @week) %>
+</p>
+
+<%= link_to 'Edit', edit_season_week_path(current_season, @week) %> |
+<%= link_to 'Back', season_weeks_path %>
