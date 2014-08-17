@@ -10,12 +10,20 @@ class Pick < ActiveRecord::Base
   validate :only_one_pick_can_be_nonzero
   validates_uniqueness_of :home_team_value, scope: [:week_id, :user_id], if: lambda { |pick| pick.home_team_value > 0}
   validates_uniqueness_of :away_team_value, scope: [:week_id, :user_id], if: lambda { |pick| pick.away_team_value > 0}
+  validate :within_current_week
 
   def only_one_pick_can_be_nonzero
     if home_team_value.present? && away_team_value.present?
       if home_team_value > 0 && away_team_value > 0
         errors.add(:base, "You can only put points on one team!")
       end
+    end
+  end
+
+  def within_current_week
+    if Time.now < week.start_time || Time.now > week.end_time
+
+      errors.add(:base, "You can only submit picks during the current week!")
     end
   end
 

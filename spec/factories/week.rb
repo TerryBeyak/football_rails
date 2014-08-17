@@ -2,6 +2,8 @@ FactoryGirl.define do
 
   factory :week do
     season
+    start_time Time.now - 1.week
+    end_time Time.now + 1.week
     
     factory :week_with_matches do
 

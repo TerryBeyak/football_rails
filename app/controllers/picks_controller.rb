@@ -64,4 +64,5 @@ class PicksController < ApplicationController
   end
   helper_method :available_points
 
+
 end

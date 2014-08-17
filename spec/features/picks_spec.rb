@@ -29,4 +29,16 @@ describe "Picks" do
     edit_picks(0, 1, p)
     page.should have_content "Pick was successfully updated"
   end
+
+  it "can only submit picks in current week" do 
+    current_time = @week.start_time - 2.weeks
+    Time.stub(:now).and_return(current_time)
+
+    visit new_season_week_match_pick_path(@season.id, @week.id, @first_match.id)
+    put_picks(1, 0)
+
+    page.should have_content "You can only submit picks during the current week!"
+
+    Pick.count.should eq 0
+  end
 end

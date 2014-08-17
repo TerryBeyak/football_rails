@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Weeks" do 
+describe "Week" do 
 
-  it "have a winner" do
+  it "has a winner" do
     @user1, @user2 = create(:user), create(:user)
     @week = create :week_with_matches
 
@@ -14,6 +14,6 @@ describe "Weeks" do
     create(:pick, week_id: @week.id, match_id: @week.matches[1].id, user_id: @user2.id, home_team_value: 2, away_team_value: 0)
     create(:pick, week_id: @week.id, match_id: @week.matches[2].id, user_id: @user2.id, away_team_value: 3, home_team_value: 0)
 
-    @week.current_winner.should eq @user1
+    @week.current_winner.should eq @user2
   end
 end

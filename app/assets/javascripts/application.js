@@ -12,4 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require backbone/underscore
+//= require backbone/backbone
+//= require backbone/router
+//= require backbone/model
+//= require backbone/views
+//= require backbone/app
 //= require_tree .

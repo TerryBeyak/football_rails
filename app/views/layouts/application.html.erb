@@ -13,13 +13,12 @@
       
     <div id="inner-content">
       <% if user_signed_in? %>
-      <div>
-        <p>Hello <%= current_user.email %></p>
-        <p><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-        <% if true %>
-          <%= render "layouts/menu" %>
-        <% end %>
-      </div>
+      <ul>
+        <li>Hello <%= current_user.email %></li>
+        <li><%= link_to 'Logout', logout_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <li><%= link_to 'Weeks this Season', season_weeks_path(current_season.id) %></li>
+      </ul>
+      <%= render "layouts/menu" %>
       <% end %> 
 
       <%= yield %>

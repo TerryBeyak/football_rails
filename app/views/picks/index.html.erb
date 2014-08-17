@@ -1,55 +1,74 @@
 <h1>This week's picks:</h1>
 
-<table id="picks-table">
-  <th></th>
-  <th></th>
-  <% @users.each do |user| %>
-    <th><%= user.email %></th>
-  <% end %>
-  
-  <% @matches.each do |match| %>
-    <tr>
-      <td><%= match.home_team.name %></td>
-      <% if match.kickoff_time > Time.now %>
-      <td><%= radio_button("match", "winner-#{match.id}", match.home_team.name.parameterize, { class: "radio-btn"}) %></td>
-      <% else %>
-      <td></td>
-      <% end %>
-      <% @users.each do |user| %>
-        <% if user.picks_by_week(current_week).select{ |pick| pick[:team] == match.home_team }.first.present? %>
-          <td class="<%= match.home_team.name.parameterize %>"  data-user="<%= user.id%>">
-            <%= user.picks_by_week(current_week).select{ |pick| pick[:team] == match.home_team }.first[:value] %> 
-          </td>
-          <% else %>
-          <td></td>
-        <% end %>
-      <% end %>
-    </tr>
-    <tr>
-      <td><%= match.away_team.name %></td>
-      <% if match.kickoff_time > Time.now %>
-      <td><%= radio_button("match", "winner-#{match.id}", match.away_team.name.parameterize, { class: "radio-btn"}) %></td>
-      <% else %>
-      <td></td>
-      <% end %>
-      <% @users.each do |user| %>
-        <% if user.picks_by_week(current_week).select{ |pick| pick[:team] == match.away_team }.first.present? %>
-          <td class="<%=match.away_team.name.parameterize %>" data-user="<%= user.id%>">
-            <%= user.picks_by_week(current_week).select{ |pick| pick[:team] == match.away_team }.first[:value] %> 
-          </td>
-          <% else %>
-          <td></td>
-        <% end %>
-      <% end %>
-    </tr>
-  <% end %>
-
-  <tr>
-    <td>Total</td>
-    <td></td>
+<div>
+  <table id="picks-table">
+    <th></th>
+    <th></th>
     <% @users.each do |user| %>
-      <td id="total-user-<%= user.id %>" >
-        <%= user.points_by_week(current_week) %> </td>
+      <th><%= user.email %></th>
     <% end %>
-  </tr>
-</table>
+    
+    <% @matches.each do |match| %>
+      <tr>
+        <% if match.winner == match.home_team %>
+          <td class="winner">
+        <% else %>
+          <td>
+        <% end %>
+          <a href="#"><%= match.home_team.name %></a>
+        </td>
+        <% if match.kickoff_time > Time.now %>
+        <td><%= radio_button("match", "winner-#{match.id}", match.home_team.id, { class: "radio-btn" }) %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <% @users.each do |user| %>
+          <% if user.picks_by_week(current_week).select{ |pick| pick[:team] == match.home_team }.first.present? %>
+            <td class="<%= match.home_team.name.parameterize %> pick" data-user="<%= user.id%>">
+              <%= user.picks_by_week(current_week).select{ |pick| pick[:team] == match.home_team }.first[:value] %> 
+            </td>
+            <% else %>
+            <td ></td>
+          <% end %>
+        <% end %>
+      </tr>
+      <tr>
+        <% if match.winner == match.away_team %>
+          <td class="winner">
+        <% else %>
+          <td>
+        <% end %>
+          <%= match.away_team.name %>
+        </td>
+        <% if match.kickoff_time > Time.now %>
+        <td><%= radio_button("match", "winner-#{match.id}", match.away_team.id, { class: "radio-btn" }) %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <% @users.each do |user| %>
+          <% if user.picks_by_week(current_week).select{ |pick| pick[:team] == match.away_team }.first.present? %>
+            <td class="<%=match.away_team.name.parameterize %> pick" data-user="<%= user.id%>" >
+              <%= user.picks_by_week(current_week).select{ |pick| pick[:team] == match.away_team }.first[:value] %> 
+            </td>
+            <% else %>
+            <td></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td>Total</td>
+      <td></td>
+      <% @users.each do |user| %>
+        <td id="total-user-<%= user.id %>" data-user-total="<%= user.id %>" class="user-total"><%= user.points_by_week(current_week) %></td>
+      <% end %>
+    </tr>
+  </table>
+</div>
+
+<script id="pick-totals" type="text/template">
+  <p class="user-total">
+    {{ user.id }}
+  </p>
+</script>

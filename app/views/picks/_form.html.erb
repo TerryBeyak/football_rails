@@ -1,3 +1,5 @@
+<p>Current week starts at: <%= current_week.start_time.to_formatted_s(:long) %> and ends at <%= current_week.end_time.to_formatted_s(:long) %></p>
+<p>Current time is: <%= Time.now.to_formatted_s(:long) %></p>
 <%= form_for [current_season, current_week, current_match, @pick] do |f| %>
   <% if @pick.errors.any? %>
     <div id="error_explanation">
