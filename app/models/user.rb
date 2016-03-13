@@ -17,12 +17,12 @@ class User < ActiveRecord::Base
   end
 
   def points_by_week week
-    @points = 0
+    points = 0
     picks.where("week_id = ? ", week).each do |pick| 
       if Week.find(week).winning_teams.include? pick.team_picked
-        @points += pick.value
+        points += pick.value
       end
     end
-    @points
+    points
   end
 end

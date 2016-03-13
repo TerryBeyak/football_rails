@@ -18,4 +18,5 @@ class Week < ActiveRecord::Base
     matches.map {|match| @teams << match.winner }
     @teams
   end
+
 end

@@ -12,7 +12,7 @@ FootballRails::Application.routes.draw do
     resources :weeks do
       get 'picks', to: "picks#index"
       resources :matches do
-        resources :picks do
+        resources :picks do #without picks#index
         end
       end
     end

@@ -16,4 +16,10 @@ describe "Week" do
 
     @week.current_winner.should eq @user2
   end
+
+  it "can receive submissions of final, valid pick sets from a user"
+
+  it "can resolve ties via tiebreaker guess"
+
+  it "can have a Random player" #maybe after MVP
 end

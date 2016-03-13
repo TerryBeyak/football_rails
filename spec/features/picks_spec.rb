@@ -41,4 +41,10 @@ describe "Picks" do
 
     Pick.count.should eq 0
   end
+
+  it "highest number can only be number of matches in week"
+
+  it "value must be unique scoped to week and user"
+
+  it "can be reviewed as a full set"
 end

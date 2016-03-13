@@ -13,6 +13,7 @@ gem 'binding_of_caller'
 gem 'devise'
 gem 'cancan'
 gem 'rolify'
+gem "simple-navigation"
 
 # Gems used only for assets and not required
 # in production environments by default.
